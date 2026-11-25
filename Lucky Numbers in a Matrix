@@ -1,0 +1,47 @@
+import java.util.*;
+
+class Solution {
+    public List<Integer> luckyNumbers(int[][] matrix) {
+        List<Integer> result = new ArrayList<>();
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+
+        for (int i = 0; i < rows; i++) {
+            int rMin = matrix[i][0];
+            int colIdx = 0;
+            for (int j = 1; j < cols; j++) {
+                if (matrix[i][j] < rMin) {
+                    rMin = matrix[i][j];
+                    colIdx = j;
+                }
+            }
+
+            boolean isLucky = true;
+            for (int k = 0; k < rows; k++) {
+                if (matrix[k][colIdx] > rMin) {
+                    isLucky = false;
+                    break;
+                }
+            }
+            if (isLucky) {
+                result.add(rMin);
+            }
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        Solution sol = new Solution();
+        System.out.println(sol.luckyNumbers(new int[][]{
+            {3, 7, 8},
+            {9, 11, 13},
+            {15, 16, 17}
+        })); // Output: [15]
+
+        System.out.println(sol.luckyNumbers(new int[][]{
+            {1, 10, 4, 2},
+            {9, 3, 8, 7},
+            {15, 16, 17, 12}
+        })); // Output: [12]
+    }
+}
