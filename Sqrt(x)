@@ -1,0 +1,33 @@
+class Solution {
+    public int mySqrt(int x) {
+        if (x < 2) {
+            return x;
+        }
+
+        int left = 1;
+        int right = x / 2;
+        int ans = 0;
+
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+
+            if (mid <= x / mid) {
+                ans = mid;
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+
+        return ans;
+    }
+
+    public static void main(String[] args) {
+        Solution sol = new Solution();
+        System.out.println(sol.mySqrt(0));          // Output: 0
+        System.out.println(sol.mySqrt(1));          // Output: 1
+        System.out.println(sol.mySqrt(4));          // Output: 2
+        System.out.println(sol.mySqrt(8));          // Output: 2 (floor of 2.828...)
+        System.out.println(sol.mySqrt(2147395599)); // Output: 46339 (no int overflow)
+    }
+}
